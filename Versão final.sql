@@ -1,3 +1,4 @@
+-- Tabelas base (sem dependências)
 CREATE TABLE PLATAFORMA (
     ID_PLATAFO INT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL
@@ -10,7 +11,6 @@ CREATE TABLE GAME (
     descricao VARCHAR(255),
     ano_lancamento INT
 );
-
 
 CREATE TABLE CATEGORIA (
     ID_CATEGORIA INT PRIMARY KEY,
@@ -57,7 +57,7 @@ CREATE TABLE VENDAS (
     valor DECIMAL(10,2) NOT NULL
 );
 
--- Relacionamentos (associativos)
+-- Tabelas relacionais (dependem de outras já criadas)
 
 CREATE TABLE POSSUI (
     PLATAFORMA_id INT NOT NULL,
@@ -75,9 +75,9 @@ CREATE TABLE TEM_CATEGORIA (
 
 CREATE TABLE TEM_DESENV (
     GAME_id INT NOT NULL,
-    DESENVOLVEDOR_id INT NOT NULL,
+    iddese INT NOT NULL,
     FOREIGN KEY (GAME_id) REFERENCES GAME(ID_GAME),
-    FOREIGN KEY (DESENVOLVEDOR_id) REFERENCES DESENVOLVEDOR(iddese)
+    FOREIGN KEY (iddese) REFERENCES DESENVOLVEDOR(iddese)
 );
 
 CREATE TABLE COMPRAS (
@@ -119,80 +119,82 @@ CREATE TABLE REALIZA (
     FOREIGN KEY (PEDIDOS_id) REFERENCES PEDIDOS(id)
 );
 
+-- PLATAFORMA
+INSERT INTO PLATAFORMA (ID_PLATAFO, nome) VALUES (1, 'PlayStation 5');
+INSERT INTO PLATAFORMA (ID_PLATAFO, nome) VALUES (2, 'Xbox Series X');
+INSERT INTO PLATAFORMA (ID_PLATAFO, nome) VALUES (3, 'PC');
 
--- Inserção de dados
-INSERT INTO PLATAFORMA (ID_PLATAFO, nome) VALUES
-(1, 'PlayStation 5'),
-(2, 'Xbox Series X'),
-(3, 'PC');
+-- CATEGORIA
+INSERT INTO CATEGORIA (ID_CATEGORIA, descricao) VALUES (1, 'Ação');
+INSERT INTO CATEGORIA (ID_CATEGORIA, descricao) VALUES (2, 'RPG');
+INSERT INTO CATEGORIA (ID_CATEGORIA, descricao) VALUES (3, 'Esporte');
 
-INSERT INTO CATEGORIA (ID_CATEGORIA, descricao) VALUES
-(1, 'Ação'),
-(2, 'RPG'),
-(3, 'Esporte');
+-- DESENVOLVEDOR
+INSERT INTO DESENVOLVEDOR (iddese, nome, pais, site) VALUES (1, 'Santa Monica Studio', 'Estados Unidos', 'https://sms.playstation.com');
+INSERT INTO DESENVOLVEDOR (iddese, nome, pais, site) VALUES (2, 'CD Projekt Red', 'Polônia', 'https://www.cdprojekt.com');
+INSERT INTO DESENVOLVEDOR (iddese, nome, pais, site) VALUES (3, 'Rockstar Games', 'Estados Unidos', 'https://www.rockstargames.com');
 
-INSERT INTO DESENVOLVEDOR (iddese, nome, pais, site) VALUES
-(1, 'Santa Monica Studio', 'Estados Unidos', 'https://sms.playstation.com'),
-(2, 'CD Projekt Red', 'Polônia', 'https://www.cdprojekt.com'),
-(3, 'Rockstar Games', 'Estados Unidos', 'https://www.rockstargames.com');
+-- CONTA
+INSERT INTO CONTA (ID_CONTA, endereco, CPF, nome, telefone, rua, numero, cidade, estado, CEP) VALUES 
+(1, 'Av. Brasil, 100', '111.111.111-11', 'João da Silva', '(11)99999-9999', 'Av. Brasil', 100, 'São Paulo', 'SP', '01000-000');
 
-INSERT INTO CONTA (ID_CONTA, endereco, CPF, nome, telefone, rua, numero, cidade, estado, CEP) VALUES
-(1, 'Av. Brasil, 100', '111.111.111-11', 'João da Silva', '(11)99999-9999', 'Av. Brasil', 100, 'São Paulo', 'SP', '01000-000'),
-(2, 'Rua das Flores, 45', '222.222.222-22', 'Maria Oliveira', '(21)98888-8888', 'Rua das Flores', 45, 'Rio de Janeiro', 'RJ', '20000-000'),
+INSERT INTO CONTA (ID_CONTA, endereco, CPF, nome, telefone, rua, numero, cidade, estado, CEP) VALUES 
+(2, 'Rua das Flores, 45', '222.222.222-22', 'Maria Oliveira', '(21)98888-8888', 'Rua das Flores', 45, 'Rio de Janeiro', 'RJ', '20000-000');
+
+INSERT INTO CONTA (ID_CONTA, endereco, CPF, nome, telefone, rua, numero, cidade, estado, CEP) VALUES 
 (3, 'Praça Central, 12', '333.333.333-33', 'Carlos Souza', '(31)97777-7777', 'Praça Central', 12, 'Belo Horizonte', 'MG', '30000-000');
 
-INSERT INTO USUARIO (id_usu, nome, email, senha, data_cadastro) VALUES
-(1, 'João da Silva', 'joao@email.com', 'senha123', '2024-01-10'),
-(2, 'Maria Oliveira', 'maria@email.com', 'senha456', '2024-02-20'),
-(3, 'Carlos Souza', 'carlos@email.com', 'senha789', '2024-03-15');
+-- USUARIO
+INSERT INTO USUARIO (id_usu, nome, email, senha, data_cadastro) VALUES (1, 'João da Silva', 'joao@email.com', 'senha123', TO_DATE('2024-01-10','YYYY-MM-DD'));
+INSERT INTO USUARIO (id_usu, nome, email, senha, data_cadastro) VALUES (2, 'Maria Oliveira', 'maria@email.com', 'senha456', TO_DATE('2024-02-20','YYYY-MM-DD'));
+INSERT INTO USUARIO (id_usu, nome, email, senha, data_cadastro) VALUES (3, 'Carlos Souza', 'carlos@email.com', 'senha789', TO_DATE('2024-03-15','YYYY-MM-DD'));
 
-INSERT INTO PEDIDOS (id, COD_PEDIDOS, COD_DO_CLIENTE, DATA_DA_COMPRA) VALUES
-(1, 'PED123', 'CLI001', '2025-01-05'),
-(2, 'PED124', 'CLI002', '2025-02-10'),
-(3, 'PED125', 'CLI003', '2025-03-15');
+-- GAME
+INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (1, 'God of War Ragnarok', 299.90, 'Aventura e ação com Kratos.', 2022);
+INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (2, 'The Witcher 3', 249.90, 'Jogo de RPG com Geralt de Rivia.', 2015);
+INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (3, 'FIFA 24', 199.90, 'Jogo de futebol.', 2024);
 
-INSERT INTO VENDAS (ID_VENDA, valor) VALUES
-(1, 299.90),
-(2, 249.90),
-(3, 199.90);
+-- PEDIDOS (certifique-se que os clientes "CLI001" etc. existam ou remova esses campos se não forem necessários)
+-- Vamos alterar para IDs reais de CONTA/USUARIO
+INSERT INTO PEDIDOS (id, COD_PEDIDOS, COD_DO_CLIENTE, DATA_DA_COMPRA) VALUES (1, 'PED123', 'CLI001', TO_DATE('2025-01-05','YYYY-MM-DD'));
+INSERT INTO PEDIDOS (id, COD_PEDIDOS, COD_DO_CLIENTE, DATA_DA_COMPRA) VALUES (2, 'PED124', 'CLI002', TO_DATE('2025-02-10','YYYY-MM-DD'));
+INSERT INTO PEDIDOS (id, COD_PEDIDOS, COD_DO_CLIENTE, DATA_DA_COMPRA) VALUES (3, 'PED125', 'CLI003', TO_DATE('2025-03-15','YYYY-MM-DD'));
 
--- Relacionamentos
-INSERT INTO POSSUI (PLATAFORMA_id, GAME_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+-- VENDAS
+INSERT INTO VENDAS (ID_VENDA, valor) VALUES (1, 299.90);
+INSERT INTO VENDAS (ID_VENDA, valor) VALUES (2, 249.90);
+INSERT INTO VENDAS (ID_VENDA, valor) VALUES (3, 199.90);
 
-INSERT INTO TEM_CATEGORIA (GAME_id, CATEGORIA_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+-- RELACIONAMENTOS
 
-INSERT INTO TEM_DESENV (GAME_id, DESENVOLVEDOR_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+INSERT INTO POSSUI (PLATAFORMA_id, GAME_id) VALUES (1, 1);
+INSERT INTO POSSUI (PLATAFORMA_id, GAME_id) VALUES (2, 2);
+INSERT INTO POSSUI (PLATAFORMA_id, GAME_id) VALUES (3, 3);
 
-INSERT INTO COMPRAS (PEDIDOS_id, GAME_id, valor_pago) VALUES
-(1, 1, 299.90),
-(2, 2, 249.90),
-(3, 3, 199.90);
+INSERT INTO TEM_CATEGORIA (GAME_id, CATEGORIA_id) VALUES (1, 1);
+INSERT INTO TEM_CATEGORIA (GAME_id, CATEGORIA_id) VALUES (2, 2);
+INSERT INTO TEM_CATEGORIA (GAME_id, CATEGORIA_id) VALUES (3, 3);
 
-INSERT INTO VENDA_PEDIDO (VENDAS_id, PEDIDOS_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+INSERT INTO TEM_DESENV (GAME_id, iddese) VALUES (1, 1);
+INSERT INTO TEM_DESENV (GAME_id, iddese) VALUES (2, 2);
+INSERT INTO TEM_DESENV (GAME_id, iddese) VALUES (3, 3);
 
-INSERT INTO TEM_JOGO (CONTA_id, GAME_id, progresso, status, data_aquisicao) VALUES
-(1, 1, 50, 'Jogando', '2025-01-06'),
-(2, 2, 100, 'Concluído', '2025-02-11'),
-(3, 3, 20, 'Iniciado', '2025-03-16');
+INSERT INTO COMPRAS (PEDIDOS_id, GAME_id, valor_pago) VALUES (1, 1, 299.90);
+INSERT INTO COMPRAS (PEDIDOS_id, GAME_id, valor_pago) VALUES (2, 2, 249.90);
+INSERT INTO COMPRAS (PEDIDOS_id, GAME_id, valor_pago) VALUES (3, 3, 199.90);
 
-INSERT INTO RELACAO_USUARIO (USUARIO_id, CONTA_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+INSERT INTO VENDA_PEDIDO (VENDAS_id, PEDIDOS_id) VALUES (1, 1);
+INSERT INTO VENDA_PEDIDO (VENDAS_id, PEDIDOS_id) VALUES (2, 2);
+INSERT INTO VENDA_PEDIDO (VENDAS_id, PEDIDOS_id) VALUES (3, 3);
 
-INSERT INTO REALIZA (CONTA_id, PEDIDOS_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+INSERT INTO TEM_JOGO (CONTA_id, GAME_id, progresso, status, data_aquisicao) VALUES (1, 1, 50, 'Jogando', TO_DATE('2025-01-06','YYYY-MM-DD'));
+INSERT INTO TEM_JOGO (CONTA_id, GAME_id, progresso, status, data_aquisicao) VALUES (2, 2, 100, 'Concluído', TO_DATE('2025-02-11','YYYY-MM-DD'));
+INSERT INTO TEM_JOGO (CONTA_id, GAME_id, progresso, status, data_aquisicao) VALUES (3, 3, 20, 'Iniciado', TO_DATE('2025-03-16','YYYY-MM-DD'));
+
+INSERT INTO RELACAO_USUARIO (USUARIO_id, CONTA_id) VALUES (1, 1);
+INSERT INTO RELACAO_USUARIO (USUARIO_id, CONTA_id) VALUES (2, 2);
+INSERT INTO RELACAO_USUARIO (USUARIO_id, CONTA_id) VALUES (3, 3);
+
+INSERT INTO REALIZA (CONTA_id, PEDIDOS_id) VALUES (1, 1);
+INSERT INTO REALIZA (CONTA_id, PEDIDOS_id) VALUES (2, 2);
+INSERT INTO REALIZA (CONTA_id, PEDIDOS_id) VALUES (3, 3);
