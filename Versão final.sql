@@ -150,10 +150,16 @@ INSERT INTO USUARIO (id_usu, nome, email, senha, data_cadastro) VALUES (2, 'Mari
 INSERT INTO USUARIO (id_usu, nome, email, senha, data_cadastro) VALUES (3, 'Carlos Souza', 'carlos@email.com', 'senha789', TO_DATE('2024-03-15','YYYY-MM-DD'));
 
 -- GAME
-INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (1, 'God of War Ragnarok', 299.90, 'Aventura e ação com Kratos.', 2022);
-INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (2, 'The Witcher 3', 249.90, 'Jogo de RPG com Geralt de Rivia.', 2015);
-INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (3, 'FIFA 24', 199.90, 'Jogo de futebol.', 2024);
-
+INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (4, 'The Last of Us Part II', 249.90, 'Drama e sobrevivência em mundo pós-apocalíptico.', 2020);
+INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (5, 'Elden Ring', 279.99, 'RPG de mundo aberto com fantasia sombria.', 2022);
+INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (6, 'Red Dead Redemption 2', 199.90, 'Faroeste com narrativa profunda.', 2018);
+INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (7, 'Cyberpunk 2077', 149.90, 'RPG futurista em Night City.', 2020);
+INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (8, 'Hogwarts Legacy', 299.90, 'Aventura no mundo mágico de Harry Potter.', 2023);
+INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (9, 'Dandara', 39.90, 'Jogo brasileiro com plataforma e ação.', 2018);
+INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (10, 'FIFA 25', 349.90, 'Jogo de futebol realista.', 2024);
+INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (11, 'Dodgeball Academia', 69.99, 'RPG esportivo brasileiro com queimada.', 2021);
+INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (12, 'Assassin''s Creed Mirage', 229.90, 'Ação e furtividade no mundo árabe.', 2023);
+INSERT INTO GAME (ID_GAME, nome, preco, descricao, ano_lancamento) VALUES (13, 'A lenda do cabeça de Cuia', 13.79, 'Aventura baseada em lenda folclórica brasileira.', 2024);
 -- PEDIDOS (certifique-se que os clientes "CLI001" etc. existam ou remova esses campos se não forem necessários)
 -- Vamos alterar para IDs reais de CONTA/USUARIO
 INSERT INTO PEDIDOS (id, COD_PEDIDOS, COD_DO_CLIENTE, DATA_DA_COMPRA) VALUES (1, 'PED123', 'CLI001', TO_DATE('2025-01-05','YYYY-MM-DD'));
