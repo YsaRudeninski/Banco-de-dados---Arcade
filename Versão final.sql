@@ -1,0 +1,198 @@
+CREATE TABLE PLATAFORMA (
+    ID_PLATAFO INT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE GAME (
+    ID_GAME INT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    descricao VARCHAR(255),
+    ano_lancamento INT
+);
+
+
+CREATE TABLE CATEGORIA (
+    ID_CATEGORIA INT PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE DESENVOLVEDOR (
+    iddese INT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    pais VARCHAR(255),
+    site VARCHAR(255)
+);
+
+CREATE TABLE CONTA (
+    ID_CONTA INT PRIMARY KEY,
+    endereco VARCHAR(255),
+    CPF VARCHAR(14) UNIQUE,
+    nome VARCHAR(255) NOT NULL,
+    telefone VARCHAR(20),
+    rua VARCHAR(255),
+    numero INT,
+    cidade VARCHAR(255),
+    estado VARCHAR(255),
+    CEP VARCHAR(10)
+);
+
+CREATE TABLE USUARIO (
+    id_usu INT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    data_cadastro DATE
+);
+
+CREATE TABLE PEDIDOS (
+    id INT PRIMARY KEY,
+    COD_PEDIDOS VARCHAR(255),
+    COD_DO_CLIENTE VARCHAR(255),
+    DATA_DA_COMPRA DATE
+);
+
+CREATE TABLE VENDAS (
+    ID_VENDA INT PRIMARY KEY,
+    valor DECIMAL(10,2) NOT NULL
+);
+
+-- Relacionamentos (associativos)
+
+CREATE TABLE POSSUI (
+    PLATAFORMA_id INT NOT NULL,
+    GAME_id INT NOT NULL,
+    FOREIGN KEY (PLATAFORMA_id) REFERENCES PLATAFORMA(ID_PLATAFO),
+    FOREIGN KEY (GAME_id) REFERENCES GAME(ID_GAME)
+);
+
+CREATE TABLE TEM_CATEGORIA (
+    GAME_id INT NOT NULL,
+    CATEGORIA_id INT NOT NULL,
+    FOREIGN KEY (GAME_id) REFERENCES GAME(ID_GAME),
+    FOREIGN KEY (CATEGORIA_id) REFERENCES CATEGORIA(ID_CATEGORIA)
+);
+
+CREATE TABLE TEM_DESENV (
+    GAME_id INT NOT NULL,
+    DESENVOLVEDOR_id INT NOT NULL,
+    FOREIGN KEY (GAME_id) REFERENCES GAME(ID_GAME),
+    FOREIGN KEY (DESENVOLVEDOR_id) REFERENCES DESENVOLVEDOR(iddese)
+);
+
+CREATE TABLE COMPRAS (
+    PEDIDOS_id INT NOT NULL,
+    GAME_id INT NOT NULL,
+    valor_pago DECIMAL(10,2),
+    FOREIGN KEY (PEDIDOS_id) REFERENCES PEDIDOS(id),
+    FOREIGN KEY (GAME_id) REFERENCES GAME(ID_GAME)
+);
+
+CREATE TABLE VENDA_PEDIDO (
+    VENDAS_id INT NOT NULL,
+    PEDIDOS_id INT NOT NULL,
+    FOREIGN KEY (VENDAS_id) REFERENCES VENDAS(ID_VENDA),
+    FOREIGN KEY (PEDIDOS_id) REFERENCES PEDIDOS(id)
+);
+
+CREATE TABLE TEM_JOGO (
+    CONTA_id INT NOT NULL,
+    GAME_id INT NOT NULL,
+    progresso INT,
+    status VARCHAR(255),
+    data_aquisicao DATE,
+    FOREIGN KEY (CONTA_id) REFERENCES CONTA(ID_CONTA),
+    FOREIGN KEY (GAME_id) REFERENCES GAME(ID_GAME)
+);
+
+CREATE TABLE RELACAO_USUARIO (
+    USUARIO_id INT NOT NULL,
+    CONTA_id INT NOT NULL,
+    FOREIGN KEY (USUARIO_id) REFERENCES USUARIO(id_usu),
+    FOREIGN KEY (CONTA_id) REFERENCES CONTA(ID_CONTA)
+);
+
+CREATE TABLE REALIZA (
+    CONTA_id INT NOT NULL,
+    PEDIDOS_id INT NOT NULL,
+    FOREIGN KEY (CONTA_id) REFERENCES CONTA(ID_CONTA),
+    FOREIGN KEY (PEDIDOS_id) REFERENCES PEDIDOS(id)
+);
+
+
+-- Inserção de dados
+INSERT INTO PLATAFORMA (ID_PLATAFO, nome) VALUES
+(1, 'PlayStation 5'),
+(2, 'Xbox Series X'),
+(3, 'PC');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, descricao) VALUES
+(1, 'Ação'),
+(2, 'RPG'),
+(3, 'Esporte');
+
+INSERT INTO DESENVOLVEDOR (iddese, nome, pais, site) VALUES
+(1, 'Santa Monica Studio', 'Estados Unidos', 'https://sms.playstation.com'),
+(2, 'CD Projekt Red', 'Polônia', 'https://www.cdprojekt.com'),
+(3, 'Rockstar Games', 'Estados Unidos', 'https://www.rockstargames.com');
+
+INSERT INTO CONTA (ID_CONTA, endereco, CPF, nome, telefone, rua, numero, cidade, estado, CEP) VALUES
+(1, 'Av. Brasil, 100', '111.111.111-11', 'João da Silva', '(11)99999-9999', 'Av. Brasil', 100, 'São Paulo', 'SP', '01000-000'),
+(2, 'Rua das Flores, 45', '222.222.222-22', 'Maria Oliveira', '(21)98888-8888', 'Rua das Flores', 45, 'Rio de Janeiro', 'RJ', '20000-000'),
+(3, 'Praça Central, 12', '333.333.333-33', 'Carlos Souza', '(31)97777-7777', 'Praça Central', 12, 'Belo Horizonte', 'MG', '30000-000');
+
+INSERT INTO USUARIO (id_usu, nome, email, senha, data_cadastro) VALUES
+(1, 'João da Silva', 'joao@email.com', 'senha123', '2024-01-10'),
+(2, 'Maria Oliveira', 'maria@email.com', 'senha456', '2024-02-20'),
+(3, 'Carlos Souza', 'carlos@email.com', 'senha789', '2024-03-15');
+
+INSERT INTO PEDIDOS (id, COD_PEDIDOS, COD_DO_CLIENTE, DATA_DA_COMPRA) VALUES
+(1, 'PED123', 'CLI001', '2025-01-05'),
+(2, 'PED124', 'CLI002', '2025-02-10'),
+(3, 'PED125', 'CLI003', '2025-03-15');
+
+INSERT INTO VENDAS (ID_VENDA, valor) VALUES
+(1, 299.90),
+(2, 249.90),
+(3, 199.90);
+
+-- Relacionamentos
+INSERT INTO POSSUI (PLATAFORMA_id, GAME_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
+
+INSERT INTO TEM_CATEGORIA (GAME_id, CATEGORIA_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
+
+INSERT INTO TEM_DESENV (GAME_id, DESENVOLVEDOR_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
+
+INSERT INTO COMPRAS (PEDIDOS_id, GAME_id, valor_pago) VALUES
+(1, 1, 299.90),
+(2, 2, 249.90),
+(3, 3, 199.90);
+
+INSERT INTO VENDA_PEDIDO (VENDAS_id, PEDIDOS_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
+
+INSERT INTO TEM_JOGO (CONTA_id, GAME_id, progresso, status, data_aquisicao) VALUES
+(1, 1, 50, 'Jogando', '2025-01-06'),
+(2, 2, 100, 'Concluído', '2025-02-11'),
+(3, 3, 20, 'Iniciado', '2025-03-16');
+
+INSERT INTO RELACAO_USUARIO (USUARIO_id, CONTA_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
+
+INSERT INTO REALIZA (CONTA_id, PEDIDOS_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
